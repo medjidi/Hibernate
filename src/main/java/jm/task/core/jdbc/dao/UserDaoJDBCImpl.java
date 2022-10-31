@@ -61,7 +61,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
-        try (ResultSet resultSet = connection.prepareStatement("SELECT * FROM users").executeQuery("SELECT * FROM users")) {
+        try (ResultSet resultSet = connection.prepareStatement("SELECT * FROM users").executeQuery("SELECT * FROM users")) { // ResultSet в блоке try с ресурсами закрывается автоматом.
             while (resultSet.next()) {
                 list.add(new User(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getByte(4)));
             }
@@ -79,4 +79,5 @@ public class UserDaoJDBCImpl implements UserDao {
             System.out.println("Database has not been cleared");
         }
     }
+    //Какие ресурсы закрывается явно? Вроде ни одного метода close нет.
 }
